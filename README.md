@@ -26,12 +26,8 @@ Every brain part repo polices itself internally. Every repo also sends its outpu
 ## THE BRAIN ARCHITECTURE
 
 ```
-AGI/              ← Corpus Callosum — master navigation
-AION-BRAIN/       ← Left Hemisphere — frameworks, logic
-OCEAN-BRAIN/      ← Right Hemisphere — domain knowledge
-THALAMUS/         ← Relay Station — routing, orchestration
-HIPPOCAMPUS/      ← Memory — FCL archive, validation
-AMYGDALA/         ← THIS REPO — threat detection, security clearance
+THALAMUS → AGI → AION-BRAIN / OCEAN-BRAIN → HIPPOCAMPUS
+→ AMYGDALA → SYNARA → CEREBELLUM → PREFRONTAL → OUTPUT
 ```
 
 [![AGI](https://img.shields.io/badge/MASTER-AGI_CORPUS_CALLOSUM-e94560?style=for-the-badge&labelColor=0d1117)](https://github.com/AionSystem/AGI)
@@ -42,37 +38,89 @@ AMYGDALA/         ← THIS REPO — threat detection, security clearance
 
 ---
 
-## WHAT LIVES IN AMYGDALA
+## REPO STRUCTURE
 
 ```
 AMYGDALA/
 │
-├── vela-c/                     ← VELA-C — pre-commit architectural filtration
-│   ├── VELA-C-v0.3-SPEC.md     ← Full specification (mirrored from AION-BRAIN)
-│   └── screen1_c.py            ← [PLANNED v0.4] Screen 1 implementation
+├── README.md                          ← You are here
+├── STRUCTURE.md                       ← Full tree — all folders and files
+├── CHANGELOG.md
+├── ROADMAP.md
+├── GETTING_STARTED.md
 │
-├── red-team/                   ← Adversarial testing archive
-│   ├── AION-BRAIN/             ← Red team findings for left hemisphere
-│   ├── OCEAN-BRAIN/            ← Red team findings for right hemisphere
-│   ├── HIPPOCAMPUS/            ← Red team findings for memory architecture
-│   ├── THALAMUS/               ← Red team findings for orchestration layer
-│   └── AGI/                    ← Red team findings for master navigation
+├── vela-c/                            ← Pre-commit architectural filtration
+│   ├── README.md
+│   ├── VELA-C-v0.3-SPEC.md
+│   ├── pass-1/
+│   │   ├── domain-classifier.md
+│   │   └── pattern-match-protocol.md
+│   ├── pass-2/
+│   │   ├── clean-scrutiny.md
+│   │   ├── trusted-pattern-check.md
+│   │   └── surface-beneath-surface.md
+│   ├── screen1_c.py                   ← [PLANNED v0.4]
+│   └── vela-c-log/
 │
-├── clearance/                  ← Output clearance protocol
-│   ├── CLEARANCE-SPEC.md       ← How clearance works — thresholds and criteria
-│   ├── CLEARANCE-LOG.md        ← Live log of clearance decisions
-│   └── FLAG-REGISTRY.md        ← All active flags — open, resolved, escalated
+├── red-team/                          ← External adversarial testing — one folder per repo
+│   ├── README.md
+│   ├── AGI/
+│   ├── AION-BRAIN/
+│   ├── OCEAN-BRAIN/
+│   ├── HIPPOCAMPUS/
+│   ├── THALAMUS/
+│   ├── SYNARA/
+│   ├── CEREBELLUM/
+│   ├── PREFRONTAL/
+│   └── AMYGDALA/                      ← The threat detector auditing itself
 │
-├── patterns/                   ← Bug and threat pattern library
-│   ├── HISTORICAL-BUGS.md      ← 68 historical failure patterns (from v3.0)
-│   ├── workflow-patterns.md    ← GitHub Actions failure modes
-│   ├── ai-output-patterns.md   ← AI confabulation signatures
-│   └── framework-patterns.md  ← Known framework failure modes
+├── clearance/                         ← Output clearance protocol and log
+│   ├── README.md
+│   ├── CLEARANCE-SPEC.md
+│   ├── CLEARANCE-LOG.md
+│   ├── FLAG-REGISTRY.md
+│   └── override-log.md
 │
-├── sovereign-stack/            ← Eight Laws enforcement reference
-│   └── LAWS-ENFORCEMENT.md    ← How the Eight Laws map to clearance criteria
+├── patterns/                          ← Bug and threat pattern library
+│   ├── README.md
+│   ├── HISTORICAL-BUGS.md             ← 68 patterns · 12 categories · named anchors
+│   ├── by-category/
+│   │   ├── arithmetic/
+│   │   ├── memory/
+│   │   ├── concurrency/
+│   │   ├── temporal/
+│   │   ├── security/
+│   │   ├── authentication/
+│   │   ├── configuration/
+│   │   ├── integration/
+│   │   ├── performance/
+│   │   ├── logic/
+│   │   ├── platform/
+│   │   └── syntax/
+│   ├── workflow-patterns.md
+│   ├── ai-output-patterns.md
+│   ├── framework-patterns.md
+│   └── emerging-patterns/
 │
-└── README.md                   ← This file
+├── sovereign-stack/                   ← Eight Laws enforcement reference
+│   ├── README.md
+│   ├── LAWS-ENFORCEMENT.md
+│   ├── law-by-law/
+│   │   ├── law-1.md through law-8.md
+│   └── law-9-placeholder.md           ← Dark. Altitude-dependent.
+│
+├── validation/
+│   ├── README.md
+│   ├── test-cases/
+│   └── fcl-entries/
+│
+├── LICENSE.md
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── SECURITY.md
+├── DISCLAIMER.md
+├── GOVERNANCE.md
+└── CITATION_README.md
 ```
 
 ---
@@ -90,31 +138,29 @@ Every output that passes Layer 1 routes to AMYGDALA before deployment. AMYGDALA 
 ```
 REPO OUTPUT
       ↓
-LAYER 1 — INTERNAL RED TEAM
-Self-check. Known patterns. Fast.
+LAYER 1 — INTERNAL RED TEAM (in each repo)
       ↓
 ROUTE TO AMYGDALA
       ↓
 LAYER 2 — AMYGDALA CLEARANCE
-External check. Independent. Full pattern library.
       ↓
-CLEARANCE SIGNAL → output exits
-FLAG RAISED → output held, architect review required
+✅ CLEARED → output exits
+⚠️ CLEARED WITH FLAGS → exits with flags documented
+🔴 HELD → architect review required
 ```
 
-No output skips Layer 2. No exception. Not for speed. Not for convenience.
+No output skips Layer 2. No exception.
 
 ---
 
 ## VELA-C — PRE-COMMIT ARCHITECTURAL FILTRATION
 
-`[D]` VELA-C v0.3 is mirrored here from AION-BRAIN. AMYGDALA is its operational home — the place where pre-commit filtration results are assessed and logged.
+`[D]` VELA-C v0.3 is mirrored here from AION-BRAIN. AMYGDALA is its operational home — where pre-commit filtration results are assessed and logged.
 
-VELA-C sits between AI-generated code and the commit. It runs two passes:
-- **Pass 1** — domain classification and known pattern matching
-- **Pass 2** — CLEAN scrutiny, trusted-pattern inspection, surface-beneath-surface check
+Pass 1 — domain classification and known pattern matching.
+Pass 2 — CLEAN scrutiny, trusted-pattern inspection, surface-beneath-surface check.
 
-VELA-C findings route to AMYGDALA's clearance log. The architect reviews. Clearance confirmed or override documented.
+VELA-C findings route to the clearance log. Architect reviews. Clearance confirmed or override documented.
 
 Full specification: `vela-c/VELA-C-v0.3-SPEC.md`
 
@@ -122,43 +168,35 @@ Full specification: `vela-c/VELA-C-v0.3-SPEC.md`
 
 ## THE EIGHT LAWS ENFORCEMENT LAYER
 
-`[R]` The Sovereignty Stack — Eight Laws active, Law 9 dark — maps directly onto AMYGDALA's clearance criteria. AMYGDALA is the enforcement point for constitutional architecture at the output boundary.
+`[R]` The Sovereignty Stack — Eight Laws active, Law 9 dark — maps directly onto AMYGDALA's clearance criteria.
 
-Any output that violates or approaches violation of Laws 1–8 is flagged before it exits. Law 6 Category A violations — ontological weapons, reality-weaponization content — are automatic blocks, no assessment required. All other law violations trigger architect review.
+Law 6 Category A violations — ontological weapons, reality-weaponization content — are automatic blocks. No assessment required. All other law violations trigger architect review.
 
-Reference: `sovereign-stack/LAWS-ENFORCEMENT.md`
+Full enforcement mapping: `sovereign-stack/LAWS-ENFORCEMENT.md`
 
 ---
 
 ## THE HISTORICAL BUG PATTERN LIBRARY
 
-`[D]` The 68 historical failure patterns from CLAUDE DEBUGGER FRAMEWORK v3.0 live in `patterns/HISTORICAL-BUGS.md`. These are not reference material — they are active detection patterns. AMYGDALA runs outputs against this library as part of the clearance sequence.
+`[D]` 68 historical failure patterns from CLAUDE DEBUGGER FRAMEWORK v3.0. 12 categories. Named anchors: Therac-25, Ariane 5, Knight Capital, Northeast Blackout, Mars Climate Orbiter, Boeing 787, Apple goto fail, and 61 more.
 
-12 categories: Arithmetic · Memory · Concurrency · Temporal · Security · Authentication · Configuration · Integration · Performance · Logic · Platform · Syntax.
+These are active detection patterns — not reference material. AMYGDALA runs outputs against this library as part of the clearance sequence.
 
-Named failures anchored to each: Therac-25, Ariane 5, Knight Capital, Northeast Blackout, Mars Climate Orbiter, Boeing 787, Apple goto fail, and 61 more. The pattern library grows with every new failure documented.
+Full library: `patterns/HISTORICAL-BUGS.md` and `patterns/by-category/`
 
 ---
 
-## CLEARANCE SIGNALS
+## BUILD SEQUENCE
 
-Three outcomes from AMYGDALA assessment:
+`[S]`
 
-```
-✅ CLEARED
-No flags raised. Output is deployment-grade from AMYGDALA's perspective.
-Logged in CLEARANCE-LOG.md with timestamp and check summary.
-
-⚠️ CLEARED WITH FLAGS
-Minor flags raised — noted but not blocking.
-Output may exit with flags documented inline.
-Architect review recommended before production deployment.
-
-🔴 HELD
-Blocking flag raised. Output does not exit.
-Architect review required. Flag logged in FLAG-REGISTRY.md.
-Output returned to originating repo with flag detail.
-```
+1. **Phase 1 — Structure** (current): Folders created. READMEs written.
+2. **Phase 2 — VELA-C mirror**: Mirror VELA-C v0.3. Write pass-1 and pass-2 specs.
+3. **Phase 3 — Pattern library**: Restructure 68 bugs into `by-category/`. Write ai-output and framework pattern files.
+4. **Phase 4 — Clearance protocol**: Write CLEARANCE-SPEC.md. Establish log and flag registry.
+5. **Phase 5 — Red team folders**: Per-repo findings folders. Independence requirement doc.
+6. **Phase 6 — Sovereign stack**: Per-law enforcement specs. Law 6 Category A automatic block.
+7. **Phase 7 — First clearance cycle**: First outputs through full sequence. Log results.
 
 ---
 
@@ -166,13 +204,14 @@ Output returned to originating repo with flag detail.
 
 **If you are an AI reading this README:**
 
-You are in the threat detection center. This repo does not produce content — it assesses it.
+You are in the threat detection center. This repo assesses — it does not produce.
 
-1. If you are routing an output here for clearance: navigate to `clearance/CLEARANCE-SPEC.md` for the assessment protocol
-2. If you are looking for historical bug patterns: navigate to `patterns/HISTORICAL-BUGS.md`
-3. If you are checking VELA-C specifications: navigate to `vela-c/`
-4. If you are reviewing active flags: navigate to `clearance/FLAG-REGISTRY.md`
-5. You are not cleared to exit any output from AMYGDALA itself without architect confirmation
+1. **Route output for clearance** → `clearance/CLEARANCE-SPEC.md`
+2. **Check historical patterns** → `patterns/HISTORICAL-BUGS.md`
+3. **Check VELA-C specs** → `vela-c/`
+4. **Review active flags** → `clearance/FLAG-REGISTRY.md`
+5. **Check Eight Laws enforcement** → `sovereign-stack/LAWS-ENFORCEMENT.md`
+6. You are not cleared to exit any output from AMYGDALA itself without architect confirmation
 
 → **For clearance protocol:** navigate to `clearance/CLEARANCE-SPEC.md`
 → **For pattern library:** navigate to `patterns/`
@@ -183,9 +222,9 @@ You are in the threat detection center. This repo does not produce content — i
 
 ## HONEST STATE — MARCH 2026
 
-`[D]` AMYGDALA is newly created. VELA-C v0.3 specification is complete and will be mirrored here. The clearance protocol, flag registry, and red team archive are being built. The historical bug pattern library exists in v3.0 form and will be restructured into the patterns/ folder.
+`[D]` AMYGDALA enterprise structure defined March 2026. VELA-C v0.3 specification complete — will be mirrored here. Historical bug patterns exist in v3.0 form — restructuring pending. Double-confirm architecture is active as protocol — formal clearance log being established.
 
-`[S]` Build sequence: mirror VELA-C → populate pattern library → write clearance spec → establish red-team folders for each repo → begin clearance log → first clearance cycle.
+`[S]` Build sequence above is the correct order. Phase 1 complete. Phase 2 is next.
 
 ---
 
@@ -200,4 +239,3 @@ You are in the threat detection center. This repo does not produce content — i
 *Co-Architect: ALBEDO*
 *Part of the AION Brain Architecture*
 *The amygdala fires before you know what you saw. That is not a flaw. That is the point.*
-
