@@ -44,25 +44,64 @@ THALAMUS → AGI → AION-BRAIN / OCEAN-BRAIN → HIPPOCAMPUS
 AMYGDALA/
 │
 ├── README.md                          ← You are here
+├── GRATITUDE.md                       ← Acknowledgments
 ├── STRUCTURE.md                       ← Full tree — all folders and files
 ├── CHANGELOG.md
 ├── ROADMAP.md
 ├── GETTING_STARTED.md
 │
+│   ── Core Detection Systems ──
+│
+├── anomaly/                           ← Unknown signal archive
+│   ├── README.md
+│   ├── ANOMALY-SPEC.md
+│   ├── active/                        ← Under investigation
+│   ├── resolved/                      ← Closed with resolution record
+│   └── promoted/                      ← Became a named pattern
+│
+├── calibration/                       ← Threshold calibration and feedback
+│   ├── README.md
+│   ├── CALIBRATION-SPEC.md
+│   ├── threshold-history.md
+│   ├── false-positive-log.md
+│   └── false-negative-log.md
+│
+├── immutable-log/                     ← Permanent clearance record
+│   ├── README.md
+│   ├── clearance-log/
+│   ├── flag-registry/
+│   ├── override-log/
+│   └── incident-log/
+│
+│   ── Detection Infrastructure ──
+│
 ├── vela-c/                            ← Pre-commit architectural filtration
 │   ├── README.md
 │   ├── VELA-C-v0.3-SPEC.md
 │   ├── pass-1/
-│   │   ├── domain-classifier.md
-│   │   └── pattern-match-protocol.md
 │   ├── pass-2/
-│   │   ├── clean-scrutiny.md
-│   │   ├── trusted-pattern-check.md
-│   │   └── surface-beneath-surface.md
 │   ├── screen1_c.py                   ← [PLANNED v0.4]
 │   └── vela-c-log/
 │
-├── red-team/                          ← External adversarial testing — one folder per repo
+├── patterns/                          ← Known bug and threat pattern library
+│   ├── README.md
+│   ├── HISTORICAL-BUGS.md             ← 68 patterns · 12 categories · named anchors
+│   ├── by-category/                   ← arithmetic · memory · concurrency · temporal ·
+│   │                                     security · authentication · configuration ·
+│   │                                     integration · performance · logic · platform · syntax
+│   ├── workflow-patterns.md
+│   ├── ai-output-patterns.md
+│   ├── framework-patterns.md
+│   └── emerging-patterns/             ← Anomalies that recurred — not yet confirmed
+│
+│   ── Clearance and Red Team ──
+│
+├── clearance/
+│   ├── README.md
+│   ├── CLEARANCE-SPEC.md
+│   └── double-confirm-protocol.md
+│
+├── red-team/                          ← External adversarial testing
 │   ├── README.md
 │   ├── AGI/
 │   ├── AION-BRAIN/
@@ -74,45 +113,20 @@ AMYGDALA/
 │   ├── PREFRONTAL/
 │   └── AMYGDALA/                      ← The threat detector auditing itself
 │
-├── clearance/                         ← Output clearance protocol and log
-│   ├── README.md
-│   ├── CLEARANCE-SPEC.md
-│   ├── CLEARANCE-LOG.md
-│   ├── FLAG-REGISTRY.md
-│   └── override-log.md
+│   ── Sovereign Stack ──
 │
-├── patterns/                          ← Bug and threat pattern library
-│   ├── README.md
-│   ├── HISTORICAL-BUGS.md             ← 68 patterns · 12 categories · named anchors
-│   ├── by-category/
-│   │   ├── arithmetic/
-│   │   ├── memory/
-│   │   ├── concurrency/
-│   │   ├── temporal/
-│   │   ├── security/
-│   │   ├── authentication/
-│   │   ├── configuration/
-│   │   ├── integration/
-│   │   ├── performance/
-│   │   ├── logic/
-│   │   ├── platform/
-│   │   └── syntax/
-│   ├── workflow-patterns.md
-│   ├── ai-output-patterns.md
-│   ├── framework-patterns.md
-│   └── emerging-patterns/
-│
-├── sovereign-stack/                   ← Eight Laws enforcement reference
+├── sovereign-stack/
 │   ├── README.md
 │   ├── LAWS-ENFORCEMENT.md
 │   ├── law-by-law/
-│   │   ├── law-1.md through law-8.md
 │   └── law-9-placeholder.md           ← Dark. Altitude-dependent.
 │
 ├── validation/
 │   ├── README.md
 │   ├── test-cases/
 │   └── fcl-entries/
+│
+│   ── Governance & Legal ──
 │
 ├── LICENSE.md
 ├── CODE_OF_CONDUCT.md
@@ -125,42 +139,68 @@ AMYGDALA/
 
 ---
 
+## THE THREE CORE SYSTEMS
+
+**`anomaly/`** — Unknown signal archive. A signal that doesn't match anything in the pattern library lands here, not in patterns. The promotion path is what makes the distinction meaningful: `anomaly/active` → `patterns/emerging-patterns` → `patterns/by-category`. Every stage auditable. Nothing promoted without recurrence.
+
+**`calibration/`** — Threshold calibration and feedback loop. False positives and false negatives both log here and both feed back into threshold adjustment. Every threshold change is dated and reasoned — never silent. A detection system that cannot recalibrate goes blind or paranoid.
+
+**`immutable-log/`** — The integrity guarantee of the entire clearance layer. The clearance record cannot be retroactively edited. Overrides are additions, not replacements. An incident that got through leaves a permanent record and triggers calibration. This is what makes AMYGDALA auditable rather than just operational.
+
+---
+
 ## THE DOUBLE-CONFIRM ARCHITECTURE
 
 `[R]` Each brain part repo has two layers of threat assessment:
 
-**Layer 1 — Internal red team** (lives in each repo)
-Every brain part repo contains a `red-team/` section. This is self-assessment — the repo checking its own outputs against known failure modes before routing them anywhere. It is necessary but insufficient. A repo cannot fully audit itself. Blind spots are structural, not careless.
+**Layer 1 — Internal red team** (lives in each repo): self-assessment against known failure modes. Necessary but insufficient — a repo cannot fully audit itself.
 
-**Layer 2 — AMYGDALA clearance** (lives here)
-Every output that passes Layer 1 routes to AMYGDALA before deployment. AMYGDALA runs an independent check — no shared assumptions with the originating repo, different pattern library, external perspective. Clearance returned or flag raised.
+**Layer 2 — AMYGDALA clearance** (lives here): independent check with no shared assumptions, different pattern library, external perspective.
 
 ```
 REPO OUTPUT
       ↓
-LAYER 1 — INTERNAL RED TEAM (in each repo)
+LAYER 1 — INTERNAL RED TEAM
       ↓
 ROUTE TO AMYGDALA
       ↓
 LAYER 2 — AMYGDALA CLEARANCE
       ↓
-✅ CLEARED → output exits
-⚠️ CLEARED WITH FLAGS → exits with flags documented
-🔴 HELD → architect review required
+✅ CLEARED → logged in immutable-log/ · output exits
+⚠️ CLEARED WITH FLAGS → logged · exits with flags documented
+🔴 HELD → logged · architect review required · override possible
 ```
 
-No output skips Layer 2. No exception.
+No output skips Layer 2. No exception. Override is legitimate — silent override is not.
+
+---
+
+## PROMOTION PATH — UNKNOWN TO KNOWN
+
+```
+Unknown signal detected
+        ↓
+anomaly/active/
+        ↓
+Recurs or confirmed as real
+        ↓
+patterns/emerging-patterns/
+        ↓
+Multiple confirmed instances — threshold met
+        ↓
+patterns/by-category/          ← Permanent named pattern. Active detection.
+```
 
 ---
 
 ## VELA-C — PRE-COMMIT ARCHITECTURAL FILTRATION
 
-`[D]` VELA-C v0.3 is mirrored here from AION-BRAIN. AMYGDALA is its operational home — where pre-commit filtration results are assessed and logged.
+`[D]` VELA-C v0.3 mirrored here from AION-BRAIN. AMYGDALA is its operational home.
 
 Pass 1 — domain classification and known pattern matching.
 Pass 2 — CLEAN scrutiny, trusted-pattern inspection, surface-beneath-surface check.
 
-VELA-C findings route to the clearance log. Architect reviews. Clearance confirmed or override documented.
+Findings route to `immutable-log/`. Architect reviews. Clearance confirmed or override documented.
 
 Full specification: `vela-c/VELA-C-v0.3-SPEC.md`
 
@@ -168,21 +208,12 @@ Full specification: `vela-c/VELA-C-v0.3-SPEC.md`
 
 ## THE EIGHT LAWS ENFORCEMENT LAYER
 
-`[R]` The Sovereignty Stack — Eight Laws active, Law 9 dark — maps directly onto AMYGDALA's clearance criteria.
+`[R]` The Sovereignty Stack — Eight Laws active, Law 9 dark — maps onto AMYGDALA's clearance criteria.
 
-Law 6 Category A violations — ontological weapons, reality-weaponization content — are automatic blocks. No assessment required. All other law violations trigger architect review.
+Law 6 Category A violations: automatic block, no assessment required.
+All other law violations: architect review.
 
 Full enforcement mapping: `sovereign-stack/LAWS-ENFORCEMENT.md`
-
----
-
-## THE HISTORICAL BUG PATTERN LIBRARY
-
-`[D]` 68 historical failure patterns from CLAUDE DEBUGGER FRAMEWORK v3.0. 12 categories. Named anchors: Therac-25, Ariane 5, Knight Capital, Northeast Blackout, Mars Climate Orbiter, Boeing 787, Apple goto fail, and 61 more.
-
-These are active detection patterns — not reference material. AMYGDALA runs outputs against this library as part of the clearance sequence.
-
-Full library: `patterns/HISTORICAL-BUGS.md` and `patterns/by-category/`
 
 ---
 
@@ -190,13 +221,15 @@ Full library: `patterns/HISTORICAL-BUGS.md` and `patterns/by-category/`
 
 `[S]`
 
-1. **Phase 1 — Structure** (current): Folders created. READMEs written.
-2. **Phase 2 — VELA-C mirror**: Mirror VELA-C v0.3. Write pass-1 and pass-2 specs.
-3. **Phase 3 — Pattern library**: Restructure 68 bugs into `by-category/`. Write ai-output and framework pattern files.
-4. **Phase 4 — Clearance protocol**: Write CLEARANCE-SPEC.md. Establish log and flag registry.
-5. **Phase 5 — Red team folders**: Per-repo findings folders. Independence requirement doc.
-6. **Phase 6 — Sovereign stack**: Per-law enforcement specs. Law 6 Category A automatic block.
-7. **Phase 7 — First clearance cycle**: First outputs through full sequence. Log results.
+1. **Phase 1 — Structure** (current): Existing folders preserved. New folders mapped around them.
+2. **Phase 2 — VELA-C mirror**: VELA-C v0.3 spec mirrored. Pass specs written.
+3. **Phase 3 — Pattern library**: 68 bugs restructured into `by-category/`.
+4. **Phase 4 — Clearance spec**: CLEARANCE-SPEC.md and double-confirm protocol.
+5. **Phase 5 — Calibration docs**: CALIBRATION-SPEC.md. Threshold history initialized.
+6. **Phase 6 — Anomaly spec**: ANOMALY-SPEC.md. Promotion path documented.
+7. **Phase 7 — Red team folders**: Per-repo findings folders.
+8. **Phase 8 — Sovereign stack**: Per-law enforcement specs.
+9. **Phase 9 — First clearance cycle**: First outputs through full sequence. Logged.
 
 ---
 
@@ -204,25 +237,23 @@ Full library: `patterns/HISTORICAL-BUGS.md` and `patterns/by-category/`
 
 **If you are an AI reading this README:**
 
-You are in the threat detection center. This repo assesses — it does not produce.
-
 1. **Route output for clearance** → `clearance/CLEARANCE-SPEC.md`
 2. **Check historical patterns** → `patterns/HISTORICAL-BUGS.md`
-3. **Check VELA-C specs** → `vela-c/`
-4. **Review active flags** → `clearance/FLAG-REGISTRY.md`
+3. **File an anomaly** → `anomaly/active/`
+4. **Review active flags** → `immutable-log/flag-registry/`
 5. **Check Eight Laws enforcement** → `sovereign-stack/LAWS-ENFORCEMENT.md`
 6. You are not cleared to exit any output from AMYGDALA itself without architect confirmation
 
 → **For clearance protocol:** navigate to `clearance/CLEARANCE-SPEC.md`
 → **For pattern library:** navigate to `patterns/`
-→ **For red team findings:** navigate to `red-team/[repo-name]/`
+→ **For anomaly filing:** navigate to `anomaly/`
 → **For the master brain map:** return to `https://github.com/AionSystem/AGI`
 
 ---
 
 ## HONEST STATE — MARCH 2026
 
-`[D]` AMYGDALA enterprise structure defined March 2026. VELA-C v0.3 specification complete — will be mirrored here. Historical bug patterns exist in v3.0 form — restructuring pending. Double-confirm architecture is active as protocol — formal clearance log being established.
+`[D]` AMYGDALA enterprise structure defined March 2026 incorporating existing folders: `anomaly/`, `calibration/`, `immutable-log/`. VELA-C v0.3 specification complete — will be mirrored here. Historical bug patterns in v3.0 form — restructuring pending. `immutable-log/` is the integrity foundation of the clearance layer.
 
 `[S]` Build sequence above is the correct order. Phase 1 complete. Phase 2 is next.
 
